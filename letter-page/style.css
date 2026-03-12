@@ -1,0 +1,27 @@
+body {
+
+font-family: Georgia, serif;
+background-color: #fafafa;
+margin: 50px;
+line-height: 1.7;
+
+}
+
+h1 {
+
+text-align: center;
+
+}
+
+.date {
+
+text-align: right;
+font-style: italic;
+
+}
+
+.signature {
+
+margin-top: 40px;
+
+}
