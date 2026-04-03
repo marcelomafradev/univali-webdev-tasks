@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Agendar Horário - B²B</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+    <link rel="stylesheet" href="css/booking.css" />
+  </head>
+  <body>
+    <header>
+      <a href="index.html" class="btn-back">
+        <i class="fa-solid fa-arrow-left"></i> Voltar
+      </a>
+      <h1>B²B Barbearia</h1>
+    </header>
+
+    <div class="container">
+      <h2>Agendando com:</h2>
+      <span class="barber-highlight" id="barberName">Carregando...</span>
+
+      <div class="section">
+        <label for="date">1. Escolha o dia:</label>
+        <input type="date" id="date" required />
+      </div>
+
+      <div class="section">
+        <label>2. Escolha o horário:</label>
+        <div class="time-grid" id="timeGrid">
+          <button class="btn-time" onclick="selectTime(this, '09:00')">
+            09:00
+          </button>
+          <button class="btn-time" onclick="selectTime(this, '09:40')">
+            09:40
+          </button>
+          <button class="btn-time" onclick="selectTime(this, '10:20')">
+            10:20
+          </button>
+          <button class="btn-time" onclick="selectTime(this, '11:00')">
+            11:00
+          </button>
+          <button class="btn-time" onclick="selectTime(this, '13:30')">
+            13:30
+          </button>
+          <button class="btn-time" onclick="selectTime(this, '14:10')">
+            14:10
+          </button>
+          <button class="btn-time" onclick="selectTime(this, '14:50')">
+            14:50
+          </button>
+          <button class="btn-time" onclick="selectTime(this, '15:30')">
+            15:30
+          </button>
+          <button class="btn-time" onclick="selectTime(this, '16:10')">
+            16:10
+          </button>
+          <button class="btn-time" onclick="selectTime(this, '17:00')">
+            17:00
+          </button>
+          <button class="btn-time" onclick="selectTime(this, '17:40')">
+            17:40
+          </button>
+          <button class="btn-time" onclick="selectTime(this, '18:20')">
+            18:20
+          </button>
+        </div>
+      </div>
+
+      <button class="btn-confirm" onclick="sendWhatsApp()">
+        <i class="fa-brands fa-whatsapp"></i> Confirmar Agendamento
+      </button>
+    </div>
+
+    <script src="js/booking.js"></script>
+  </body>
+</html>

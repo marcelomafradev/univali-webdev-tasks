@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>B²B Barbearia</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <header class="hero">
+      <button class="btn-our-space">Conheça nosso espaço</button>
+
+      <div class="social-links">
+        <a
+          href="https://www.instagram.com/b2b.barbearia/"
+          target="_blank"
+          title="Instagram"
+        >
+          <i class="fa-brands fa-instagram"></i>
+        </a>
+        <a href="https://wa.me/554792457984" target="_blank" title="WhatsApp">
+          <i class="fa-brands fa-whatsapp"></i>
+        </a>
+      </div>
+
+      <img src="assets/logo.png" alt="B²B Barbearia" class="logo-animated" />
+
+      <div class="hero-content">
+        <h1><span></span> Barbearia</h1>
+        <button class="btn-schedule" id="scheduleBtn">Agendar Horário</button>
+      </div>
+    </header>
+
+    <div class="team-wrapper" id="team">
+      <img src="assets/logo.png" alt="Logo" class="logo-top-left" />
+      <img src="assets/logo.png" alt="Logo" class="logo-bottom-right" />
+
+      <section class="team-diagonal">
+        <div
+          class="barber-card"
+          onclick="window.location.href = 'booking.html?barber=Guilherme'"
+        >
+          <div class="barber-img-wrapper">
+            <img
+              src="assets/barber-guilherme.jpg"
+              alt="Guilherme"
+              style="object-position: 50% 20%"
+            />
+          </div>
+          <div class="barber-name guilherme-offset">Guilherme</div>
+        </div>
+
+        <div
+          class="barber-card"
+          onclick="window.location.href = 'booking.html?barber=Jefe'"
+        >
+          <div class="barber-img-wrapper">
+            <img
+              src="assets/barber-jefe.jpg"
+              alt="Jefe"
+              style="object-position: 50% 20%"
+            />
+          </div>
+          <div class="barber-name">Jefe</div>
+        </div>
+
+        <div
+          class="barber-card"
+          onclick="window.location.href = 'booking.html?barber=André'"
+        >
+          <div class="barber-img-wrapper">
+            <img
+              src="assets/barber-andre.jpg"
+              alt="André"
+              style="object-position: 50% 20%"
+            />
+          </div>
+          <div class="barber-name">André</div>
+        </div>
+      </section>
+    </div>
+
+    <script src="js/index.js"></script>
+  </body>
+</html>

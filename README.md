@@ -5,12 +5,19 @@ Repositório com atividades da disciplina de desenvolvimento web.
 ## Atividades
 
 ### 27/02/2026
+
 Página HTML sobre um animal de estimação.
 
 ### 06/03/2026
+
 Página HTML simulando uma carta.
+
+### 03/04/2026
+
+Site de barbearia com página inicial e sistema de agendamento.
 
 ## Estrutura
 
-- pet-page → página sobre animal de estimação
-- letter-page → página de carta
+- `pet-page` → página sobre animal de estimação
+- `letter-page` → página de carta
+- `b2b` → site da B²B Barbearia
