@@ -10,5 +10,4 @@ function type() {
   }
 }
 
-// Começa a digitar após a animação do logo terminar
 setTimeout(type, 1600);

@@ -1,7 +1,6 @@
 const images = Array.from(document.querySelectorAll(".space-gallery img"));
 let current = 0;
 
-// Cria lightbox
 const overlay = document.createElement("div");
 overlay.className = "lightbox";
 overlay.innerHTML = `
