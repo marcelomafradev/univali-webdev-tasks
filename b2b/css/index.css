@@ -1,0 +1,78 @@
+body {
+  overflow: hidden;
+}
+
+.hero {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.logo-animated {
+  width: 350px;
+  max-width: 90%;
+  animation: dropIn 1.5s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+  margin-bottom: 2rem;
+}
+
+.hero-content {
+  text-align: center;
+  opacity: 0;
+  animation: fadeIn 1s ease-in 1.2s forwards;
+}
+
+.hero-content h1 {
+  font-size: 2.8rem;
+  color: #000;
+  margin-bottom: 40px;
+  text-transform: uppercase;
+  letter-spacing: 50px;
+}
+
+.hero-content h1 span {
+  letter-spacing: normal;
+  margin-right: 40px;
+}
+
+.btn-schedule {
+  display: inline-block;
+  padding: 18px 45px;
+  background-color: #000;
+  color: #fff;
+  border: 1px solid #000;
+  font-size: 0.9rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  cursor: pointer;
+  transition: all 0.4s ease;
+}
+
+.btn-schedule:hover {
+  color: #000;
+  background-color: transparent;
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 768px) {
+  .hero-content h1 {
+    font-size: 1.6rem;
+    letter-spacing: 20px;
+  }
+}
+
+/* ── Efeito de digitação ── */
+#typed-title::after {
+  content: "|";
+  animation: blink 0.7s step-end infinite;
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}

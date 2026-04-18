@@ -1,0 +1,139 @@
+body {
+  overflow: hidden;
+}
+
+.team-diagonal {
+  display: flex;
+  height: 100vh;
+  width: 110%;
+  margin-left: -5%;
+}
+
+.barber-card {
+  flex: 1;
+  position: relative;
+  transform: skewX(-20deg);
+  border-right: 6px solid #000;
+  border-left: 6px solid #000;
+  overflow: hidden;
+  cursor: pointer;
+  transition: flex 0.5s ease;
+}
+
+.barber-card:hover {
+  flex: 1.4;
+}
+
+.barber-img-wrapper {
+  position: absolute;
+  top: 0;
+  left: -50%;
+  width: 200%;
+  height: 100%;
+  transform: skewX(20deg);
+}
+
+.barber-img-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(80%);
+  transition:
+    filter 0.5s ease,
+    transform 0.5s ease;
+}
+
+.barber-card:hover .barber-img-wrapper img {
+  filter: grayscale(0%);
+  transform: scale(1.05);
+}
+
+.barber-name {
+  position: absolute;
+  bottom: 50px;
+  left: 50%;
+  transform: translateX(-50%) skewX(20deg);
+  color: #fff;
+  font-size: 2rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.9);
+  transition: transform 0.3s;
+  z-index: 10;
+}
+
+.guilherme-offset {
+  left: 65% !important;
+  transform: translateX(-50%) skewX(20deg) !important;
+}
+
+.barber-card:hover .barber-name {
+  transform: translateX(-50%) skewX(20deg) scale(1.1);
+}
+
+@media (max-width: 768px) {
+  body {
+    overflow: auto;
+  }
+
+  .team-diagonal {
+    flex-direction: column;
+    width: 100%;
+    height: auto;
+    margin: 0;
+    padding-top: 70px;
+  }
+
+  .barber-card {
+    transform: none;
+    border: none;
+    height: 400px;
+  }
+
+  .barber-img-wrapper {
+    transform: none;
+    left: 0;
+    width: 100%;
+  }
+
+  .barber-name {
+    transform: translateX(-50%);
+    left: 50% !important;
+  }
+}
+
+/* ── Tooltip de especialidades ── */
+.barber-tooltip {
+  position: absolute;
+  top: 80px;
+  left: 50%;
+  transform: translateX(-50%) skewX(20deg);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  z-index: 20;
+}
+
+.barber-tooltip.visible {
+  opacity: 1;
+}
+
+.barber-tooltip span {
+  background: rgba(0, 0, 0, 0.75);
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 5px 12px;
+  white-space: nowrap;
+}
+
+@media (max-width: 768px) {
+  .barber-tooltip {
+    transform: translateX(-50%);
+  }
+}
