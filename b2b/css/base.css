@@ -76,6 +76,35 @@ body {
   color: #fff;
 }
 
+/* ── Hamburguer ── */
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  z-index: 1100;
+}
+
+.nav-toggle span {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: #000;
+  transition: all 0.3s;
+}
+
+.nav-dark .nav-toggle span {
+  background: #fff;
+}
+
+/* menu aberto */
+.nav-links.open {
+  display: flex;
+}
+
 @keyframes fadeInDown {
   0% {
     opacity: 0;
@@ -121,19 +150,42 @@ body {
   color: #fff;
 }
 
+/* ── Mobile ── */
 @media (max-width: 768px) {
   .main-nav {
-    padding: 12px 16px;
+    padding: 14px 20px;
     flex-wrap: wrap;
-    gap: 8px;
+    gap: 0;
+    background: rgba(255, 255, 255, 0.97);
+  }
+
+  .nav-dark {
+    background: rgba(0, 0, 0, 0.97);
+  }
+
+  .nav-toggle {
+    display: flex;
   }
 
   .nav-links {
-    gap: 14px;
+    display: none;
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
+    padding: 16px 0 8px;
+    order: 3;
   }
 
   .nav-links a {
-    font-size: 0.75rem;
+    font-size: 0.9rem;
+  }
+
+  .nav-social {
+    gap: 14px;
+  }
+
+  .nav-social a i {
+    font-size: 20px;
   }
 
   .section-title {

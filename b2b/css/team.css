@@ -71,37 +71,6 @@ body {
   transform: translateX(-50%) skewX(20deg) scale(1.1);
 }
 
-@media (max-width: 768px) {
-  body {
-    overflow: auto;
-  }
-
-  .team-diagonal {
-    flex-direction: column;
-    width: 100%;
-    height: auto;
-    margin: 0;
-    padding-top: 70px;
-  }
-
-  .barber-card {
-    transform: none;
-    border: none;
-    height: 400px;
-  }
-
-  .barber-img-wrapper {
-    transform: none;
-    left: 0;
-    width: 100%;
-  }
-
-  .barber-name {
-    transform: translateX(-50%);
-    left: 50% !important;
-  }
-}
-
 /* ── Tooltip de especialidades ── */
 .barber-tooltip {
   position: absolute;
@@ -132,8 +101,64 @@ body {
   white-space: nowrap;
 }
 
+/* ── Mobile ── */
 @media (max-width: 768px) {
+  body {
+    overflow: auto;
+  }
+
+  .team-diagonal {
+    flex-direction: column;
+    width: 100%;
+    height: auto;
+    margin: 0;
+    padding-top: 130px; /* altura da nav mobile expandida */
+  }
+
+  .barber-card {
+    transform: none;
+    border: none;
+    border-bottom: 4px solid #000;
+    height: 45vh;
+    min-height: 220px;
+  }
+
+  .barber-card:last-child {
+    border-bottom: none;
+  }
+
+  .barber-img-wrapper {
+    transform: none;
+    left: 0;
+    width: 100%;
+  }
+
+  .barber-name {
+    transform: translateX(-50%);
+    left: 50% !important;
+    font-size: 1.5rem;
+    bottom: 30px;
+  }
+
+  /* tooltip vira tag fixa abaixo do nome no mobile */
   .barber-tooltip {
     transform: translateX(-50%);
+    top: auto;
+    bottom: 70px;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 4px;
+    width: 90%;
+  }
+
+  .barber-tooltip span {
+    font-size: 0.65rem;
+    padding: 4px 8px;
+  }
+
+  /* no mobile mostra sempre (sem hover) */
+  .barber-tooltip {
+    opacity: 1;
   }
 }
