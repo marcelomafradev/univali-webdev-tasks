@@ -1,5 +1,7 @@
 # B²B Barbearia
 
+Site institucional da B²B Barbearia com apresentação da equipe, galeria do espaço e sistema de agendamento via WhatsApp.
+
 ## Devs
 
 - [@marcelomafradev](https://github.com/marcelomafradev)
@@ -7,22 +9,27 @@
 - [@nazonasul](https://github.com/nazonasul)
 - [@Vtkzin](https://github.com/Vtkzin)
 
-Site institucional da B²B Barbearia com página inicial e sistema de agendamento via WhatsApp.
-
 ## Páginas
 
-- `index.html` → página principal com apresentação dos barbeiros
-- `booking.html` → página de agendamento de horário
+- `index.html` → página inicial com hero animado
+- `team.html` → seleção de barbeiro para agendamento
+- `space.html` → galeria do espaço da barbearia
+- `about.html` → história e estatísticas da B²B
+- `booking.html` → agendamento de horário com confirmação via WhatsApp
 
 ## Estrutura
 
-- `assets/` → imagens dos barbeiros e logo
-- `css/` → estilos da página principal (`style.css`) e do agendamento (`booking.css`)
-- `js/` → scripts da página principal (`index.js`) e do agendamento (`booking.js`)
+```
+assets/   → imagens dos barbeiros, galeria e logo
+css/      → estilos por página (base.css, index.css, team.css, space.css, about.css, booking.css)
+js/       → scripts por página (base.js, index.js, team.js, space.js, about.js)
+```
 
 ## Funcionalidades
 
-- Apresentação dos barbeiros com foto e nome
-- Seleção de barbeiro redireciona para a página de agendamento
+- Navegação responsiva com menu mobile
+- Apresentação dos barbeiros com seleção para agendamento
+- Galeria de fotos do espaço
+- Contador animado de estatísticas (anos, barbeiros, clientes)
 - Agendamento com escolha de data e horário
 - Confirmação enviada via WhatsApp
