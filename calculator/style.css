@@ -1,0 +1,106 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.calc-wrapper {
+  padding: 1rem;
+}
+.calculator {
+  background: #1e1e2e;
+  border-radius: 20px;
+  padding: 1.5rem;
+  width: 320px;
+  box-shadow:
+    0 25px 60px rgba(0, 0, 0, 0.5),
+    0 0 0 1px rgba(255, 255, 255, 0.05);
+}
+.display {
+  background: #13131f;
+  border-radius: 12px;
+  padding: 1rem 1.2rem;
+  margin-bottom: 1.2rem;
+  text-align: right;
+  min-height: 90px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 0.3rem;
+  overflow: hidden;
+}
+.display-expression {
+  font-size: 0.85rem;
+  color: #6b7280;
+  min-height: 1.2em;
+  word-break: break-all;
+}
+.display-result {
+  font-size: 2.2rem;
+  color: #f8f8f2;
+  font-weight: 300;
+  word-break: break-all;
+  transition: font-size 0.1s;
+}
+.buttons {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.6rem;
+}
+.btn {
+  border: none;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  font-weight: 500;
+  padding: 1rem 0;
+  cursor: pointer;
+  transition: transform 0.1s, filter 0.1s, box-shadow 0.1s;
+  user-select: none;
+}
+.btn:active {
+  transform: scale(0.93);
+  filter: brightness(0.85);
+}
+.btn-number {
+  background: #2a2a3e;
+  color: #f8f8f2;
+  box-shadow: 0 4px 0 #1a1a2e;
+}
+.btn-number:hover {
+  background: #33334d;
+}
+.btn-operator {
+  background: #3a3a5c;
+  color: #bd93f9;
+  box-shadow: 0 4px 0 #252540;
+}
+.btn-operator:hover {
+  background: #44446e;
+}
+.btn-clear {
+  background: #3d2a2a;
+  color: #ff6b6b;
+  box-shadow: 0 4px 0 #2a1a1a;
+}
+.btn-clear:hover {
+  background: #4d3333;
+}
+.btn-equals {
+  background: linear-gradient(135deg, #6c63ff, #4a6cf7);
+  color: #fff;
+  font-size: 1.3rem;
+  box-shadow: 0 4px 0 #3a3aaa;
+}
+.btn-equals:hover {
+  filter: brightness(1.1);
+}
+.btn-zero {
+  grid-column: span 2;
+}

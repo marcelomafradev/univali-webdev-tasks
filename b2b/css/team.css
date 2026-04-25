@@ -1,14 +1,12 @@
 body {
   overflow: hidden;
 }
-
 .team-diagonal {
   display: flex;
   height: 100vh;
   width: 110%;
   margin-left: -5%;
 }
-
 .barber-card {
   flex: 1;
   position: relative;
@@ -19,11 +17,9 @@ body {
   cursor: pointer;
   transition: flex 0.5s ease;
 }
-
 .barber-card:hover {
   flex: 1.4;
 }
-
 .barber-img-wrapper {
   position: absolute;
   top: 0;
@@ -32,7 +28,6 @@ body {
   height: 100%;
   transform: skewX(20deg);
 }
-
 .barber-img-wrapper img {
   width: 100%;
   height: 100%;
@@ -42,12 +37,10 @@ body {
     filter 0.5s ease,
     transform 0.5s ease;
 }
-
 .barber-card:hover .barber-img-wrapper img {
   filter: grayscale(0%);
   transform: scale(1.05);
 }
-
 .barber-name {
   position: absolute;
   bottom: 50px;
@@ -61,17 +54,13 @@ body {
   transition: transform 0.3s;
   z-index: 10;
 }
-
 .guilherme-offset {
   left: 65% !important;
   transform: translateX(-50%) skewX(20deg) !important;
 }
-
 .barber-card:hover .barber-name {
   transform: translateX(-50%) skewX(20deg) scale(1.1);
 }
-
-/* ── Tooltip de especialidades ── */
 .barber-tooltip {
   position: absolute;
   top: 80px;
@@ -85,11 +74,9 @@ body {
   transition: opacity 0.3s ease;
   z-index: 20;
 }
-
 .barber-tooltip.visible {
   opacity: 1;
 }
-
 .barber-tooltip span {
   background: rgba(0, 0, 0, 0.75);
   color: #fff;
@@ -100,21 +87,17 @@ body {
   padding: 5px 12px;
   white-space: nowrap;
 }
-
-/* ── Mobile ── */
 @media (max-width: 768px) {
   body {
     overflow: auto;
   }
-
   .team-diagonal {
     flex-direction: column;
     width: 100%;
     height: auto;
     margin: 0;
-    padding-top: 130px; /* altura da nav mobile expandida */
+    padding-top: 130px; 
   }
-
   .barber-card {
     transform: none;
     border: none;
@@ -122,25 +105,20 @@ body {
     height: 45vh;
     min-height: 220px;
   }
-
   .barber-card:last-child {
     border-bottom: none;
   }
-
   .barber-img-wrapper {
     transform: none;
     left: 0;
     width: 100%;
   }
-
   .barber-name {
     transform: translateX(-50%);
     left: 50% !important;
     font-size: 1.5rem;
     bottom: 30px;
   }
-
-  /* tooltip vira tag fixa abaixo do nome no mobile */
   .barber-tooltip {
     transform: translateX(-50%);
     top: auto;
@@ -151,13 +129,10 @@ body {
     gap: 4px;
     width: 90%;
   }
-
   .barber-tooltip span {
     font-size: 0.65rem;
     padding: 4px 8px;
   }
-
-  /* no mobile mostra sempre (sem hover) */
   .barber-tooltip {
     opacity: 1;
   }
