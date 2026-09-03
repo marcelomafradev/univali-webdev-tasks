@@ -1,0 +1,36 @@
+digraph DiagramaER {
+  rankdir=LR;
+  node [shape=plaintext, fontname="Helvetica"];
+  edge [fontname="Helvetica", fontsize=10];
+
+  tipo_imovel [label=<
+    <table border="1" cellborder="0" cellspacing="0" cellpadding="4">
+      <tr><td bgcolor="#2c3e50"><font color="white"><b>tipo_imovel</b></font></td></tr>
+      <tr><td align="left">PK  id_tipo (INT)</td></tr>
+      <tr><td align="left">    tipo (VARCHAR)</td></tr>
+    </table>
+  >];
+
+  imovel [label=<
+    <table border="1" cellborder="0" cellspacing="0" cellpadding="4">
+      <tr><td bgcolor="#2c3e50"><font color="white"><b>imovel</b></font></td></tr>
+      <tr><td align="left">PK  id_imovel (INT)</td></tr>
+      <tr><td align="left">    descricao (VARCHAR)</td></tr>
+      <tr><td align="left">FK  id_tipo (INT)</td></tr>
+      <tr><td align="left">    inquilino (VARCHAR)</td></tr>
+    </table>
+  >];
+
+  pagamento [label=<
+    <table border="1" cellborder="0" cellspacing="0" cellpadding="4">
+      <tr><td bgcolor="#2c3e50"><font color="white"><b>pagamento</b></font></td></tr>
+      <tr><td align="left">PK  id_pagamento (INT)</td></tr>
+      <tr><td align="left">    data_pagamento (DATE)</td></tr>
+      <tr><td align="left">    valor_pagamento (DECIMAL)</td></tr>
+      <tr><td align="left">FK  id_imovel (INT)</td></tr>
+    </table>
+  >];
+
+  imovel -> tipo_imovel [label="N:1", arrowhead=none, dir=back, arrowtail=crow];
+  pagamento -> imovel [label="N:1", arrowhead=none, dir=back, arrowtail=crow];
+}
