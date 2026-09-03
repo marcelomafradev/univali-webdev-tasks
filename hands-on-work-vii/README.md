@@ -3,11 +3,13 @@
 Serviços de backend para os painéis gráficos de uma gestora imobiliária
 (disciplina Hands on Work VII, contexto de extensão Projeto NAM/UNIVALI).
 
+Tecnologias: MySQL, TypeScript sobre Node.js (via [`tsx`](https://github.com/privatenumber/tsx), sem passo de build) e `mysql2` como driver de banco.
+
 **Entrega 1:** [`docs/entrega-1.pdf`](docs/entrega-1.pdf) — documento
 consolidado com capa, diagrama ER, scripts SQL, código-fonte e especificação
-OpenAPI (itens a ao f).
+OpenAPI (itens a até f).
 
-Esta entrega cobre os itens **a a f** da Parte 1 do enunciado:
+Esta entrega cobre os itens **a** até **f** da Parte 1 do enunciado:
 
 | Item | Onde está |
 |---|---|
@@ -35,9 +37,7 @@ em memória.
 
 ## Como rodar
 
-Pré-requisitos: Node.js 20+ e um MySQL acessível. O projeto é em TypeScript e
-roda direto via [`tsx`](https://github.com/privatenumber/tsx), sem passo de
-build.
+Pré-requisitos: Node.js 20+ e um MySQL acessível.
 
 1. Suba o schema e os dados de exemplo:
 
