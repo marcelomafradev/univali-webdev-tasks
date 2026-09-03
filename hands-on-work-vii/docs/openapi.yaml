@@ -1,0 +1,137 @@
+openapi: 3.0.3
+info:
+  title: API de Paineis Graficos de Gestao Imobiliaria - Hands on Work VII
+  description: >
+    Servicos REST para alimentar os paineis graficos (barras, linha/dispersao e
+    pizza) de uma empresa de gestao imobiliaria. Os dados sao carregados na
+    integra a partir do banco relacional e filtrados/agregados na aplicacao,
+    por meio de tecnicas de programacao funcional (map/filter/reduce), nao no
+    SGBD. Especificacao dos 3 servicos a serem implementados na Parte 2.
+  version: 1.0.0
+  license:
+    name: MIT
+servers:
+  - url: http://localhost:3000
+    description: Ambiente local de desenvolvimento
+security: []
+
+paths:
+  /api/imoveis/total-pagamentos:
+    get:
+      summary: Total acumulado de pagamentos por imovel
+      description: >
+        Grafico de barras: para cada imovel, o somatorio de todos os
+        pagamentos ao longo de toda a serie historica.
+      operationId: getTotalPagamentosPorImovel
+      responses:
+        '200':
+          description: Lista com o total acumulado de pagamentos por imovel
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TotalPorImovel'
+              example:
+                - codigoImovel: 3
+                  totalPagamentos: 30000.00
+                - codigoImovel: 9
+                  totalPagamentos: 12000.00
+        '500':
+          $ref: '#/components/responses/ErroInterno'
+
+  /api/vendas/mensal:
+    get:
+      summary: Total de vendas por mes/ano
+      description: >
+        Grafico de linha/dispersao: total de vendas ocorridas em cada
+        mes/ano, considerando todos os dados disponiveis.
+      operationId: getVendasPorMes
+      responses:
+        '200':
+          description: Lista com o total de vendas por mes/ano
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TotalPorMes'
+              example:
+                - mesAno: '11/2025'
+                  totalVendas: 23000.00
+                - mesAno: '12/2025'
+                  totalVendas: 15000.00
+        '500':
+          $ref: '#/components/responses/ErroInterno'
+
+  /api/imoveis/percentual-por-tipo:
+    get:
+      summary: Percentual do valor total de vendas por tipo de imovel
+      description: >
+        Grafico de pizza: percentual do valor total de vendas de cada
+        modalidade de imovel (Apartamento, Casa, Terreno, Sala Comercial)
+        em relacao a toda a serie historica.
+      operationId: getPercentualVendasPorTipoImovel
+      responses:
+        '200':
+          description: Lista com o percentual de vendas por tipo de imovel
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PercentualPorTipo'
+              example:
+                - tipoImovel: Apartamento
+                  percentual: 50.0
+                - tipoImovel: Casa
+                  percentual: 30.0
+                - tipoImovel: Sala Comercial
+                  percentual: 20.0
+        '500':
+          $ref: '#/components/responses/ErroInterno'
+
+components:
+  responses:
+    ErroInterno:
+      description: Erro inesperado ao processar a serie historica
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              mensagem:
+                type: string
+                example: Falha ao consultar pagamentos
+  schemas:
+    TotalPorImovel:
+      type: object
+      properties:
+        codigoImovel:
+          type: integer
+          example: 3
+        totalPagamentos:
+          type: number
+          format: double
+          example: 30000.00
+    TotalPorMes:
+      type: object
+      properties:
+        mesAno:
+          type: string
+          description: Mes e ano no formato MM/AAAA
+          example: '11/2025'
+        totalVendas:
+          type: number
+          format: double
+          example: 23000.00
+    PercentualPorTipo:
+      type: object
+      properties:
+        tipoImovel:
+          type: string
+          example: Apartamento
+        percentual:
+          type: number
+          format: double
+          example: 50.0

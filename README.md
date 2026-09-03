@@ -24,6 +24,11 @@ Site de barbearia com página inicial e sistema de agendamento.
 
 Calculadora desenvolvida com HTML, CSS e JavaScript.
 
+### 03/09/2026 - Hands on Work VII
+
+Serviços web (backend) para painéis gráficos de gestão imobiliária: banco de
+dados MySQL, consulta com JOIN e código Node.js de acesso aos dados (Parte 1).
+
 ## Estrutura
 
 - `pet-page` → página sobre animal de estimação
@@ -31,6 +36,7 @@ Calculadora desenvolvida com HTML, CSS e JavaScript.
 - `links-page` → página de links dos projetos
 - `b2b` → site da B²B Barbearia
 - `calculator` → calculadora
+- `hands-on-work-vii` → serviços web dos painéis gráficos de uma gestora imobiliária (backend)
 
 ## Links
 

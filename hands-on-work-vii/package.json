@@ -1,0 +1,19 @@
+{
+  "name": "hands-on-work-vii",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Servicos web para os paineis graficos de uma gestora imobiliaria - Hands on Work VII (NAM/UNIVALI)",
+  "scripts": {
+    "start": "tsx src/consultar-pagamentos.ts"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "mysql2": "^3.11.3"
+  },
+  "devDependencies": {
+    "@types/node": "^26.4.1",
+    "tsx": "^4.23.13",
+    "typescript": "^5.9.3"
+  }
+}
