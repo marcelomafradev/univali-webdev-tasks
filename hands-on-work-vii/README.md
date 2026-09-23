@@ -5,15 +5,17 @@ Serviços de backend para os painéis gráficos de uma gestora imobiliária
 
 Tecnologias: MySQL, TypeScript sobre Node.js (via [`tsx`](https://github.com/privatenumber/tsx), sem passo de build) e `mysql2` como driver de banco.
 
-**Entregas 1 e 2:** o PDF consolidado (capa, diagrama ER, scripts SQL,
+**Entregas 1 e 2:** o relatório consolidado (capa, diagrama ER, scripts SQL,
 código-fonte, especificação OpenAPI e os resultados dos testes dos 3 serviços
 REST, com prints do Swagger UI) é gerado a partir de
-[`docs/entrega-1.md`](docs/entrega-1.md) — para reproduzir, rode
-`pandoc docs/entrega-1.md -o docs/entrega-1.pdf --pdf-engine=tectonic` a
+[`docs/relatorio.md`](docs/relatorio.md) — para reproduzir, rode
+`pandoc docs/relatorio.md -o docs/entrega-2.pdf --pdf-engine=tectonic` a
 partir da pasta `docs/`. O vídeo de apresentação segue o mesmo roteiro
 (3 requisições REST e seus resultados JSON, código-fonte e estrutura do
-banco de dados). Nenhum dos dois fica versionado neste repositório; ambos
-são entregues separadamente no ambiente da disciplina.
+banco de dados) e está publicado na
+[Release do repositório](https://github.com/marcelomafradev/univali-webdev-tasks/releases/tag/hands-on-work-vii-entrega-2).
+Nenhum dos dois arquivos fica versionado neste repositório; o PDF final é
+entregue no ambiente da disciplina.
 
 Esta entrega cobre os itens **a** até **f** da Parte 1 do enunciado:
 
