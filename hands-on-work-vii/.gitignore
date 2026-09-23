@@ -6,3 +6,6 @@ npm-debug.log*
 # Entregáveis grandes (PDF/vídeo): mantidos localmente, entregues à parte, não versionados
 docs/entrega-1.pdf
 docs/video-apresentacao.mp4
+docs/video-apresentacao-silencioso.mp4
+docs/video-raw/
+docs/entrega-2-hands-on-work-vii.zip

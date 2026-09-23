@@ -634,7 +634,10 @@ Os três retornaram HTTP 200 com os valores esperados: os totais por imóvel som
 
 Com o banco modelado, a consulta com junção pronta, o código de acesso funcionando e, agora, as três funções de agregação implementadas e expostas como serviços REST testados via Swagger, as duas partes do trabalho estão concluídas conforme o enunciado.
 
-O código-fonte completo deste trabalho está disponível no repositório do grupo, na pasta `hands-on-work-vii`.
+O código-fonte completo deste trabalho está disponível no repositório do grupo, na pasta `hands-on-work-vii`:
+
+- Repositório: <https://github.com/marcelomafradev/univali-webdev-tasks/tree/main/hands-on-work-vii>
+- Vídeo de apresentação (Entrega 2): <https://github.com/marcelomafradev/univali-webdev-tasks/releases/tag/hands-on-work-vii-entrega-2>
 
 \newpage
 
