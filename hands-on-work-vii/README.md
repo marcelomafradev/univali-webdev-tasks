@@ -1,4 +1,4 @@
-# Hands on Work VII — Parte 1
+# Hands on Work VII
 
 Serviços de backend para os painéis gráficos de uma gestora imobiliária
 (disciplina Hands on Work VII, contexto de extensão Projeto NAM/UNIVALI).
@@ -72,12 +72,41 @@ Pré-requisitos: Node.js 20+ e um MySQL acessível.
 
 ## Documento OpenAPI (item f)
 
-`docs/openapi.yaml` descreve os 3 serviços REST/GET que serão implementados
-na Parte 2 (ainda não implementados nesta entrega):
+`docs/openapi.yaml` descreve os 3 serviços REST/GET implementados na Parte 2:
 
 - `GET /api/imoveis/total-pagamentos` — total acumulado por imóvel (gráfico de barras)
 - `GET /api/vendas/mensal` — total de vendas por mês/ano (gráfico de linha/dispersão)
 - `GET /api/imoveis/percentual-por-tipo` — percentual de vendas por tipo de imóvel (gráfico de pizza)
 
 Para visualizar/testar a especificação no Swagger, importe o arquivo em
-https://editor.swagger.io/ ou em uma instância local do Swagger UI.
+https://editor.swagger.io/ ou acesse o Swagger UI servido pela própria API
+(`/docs`, ver seção abaixo).
+
+## Parte 2 — Serviços REST
+
+Esta entrega cobre os itens **a** até **d** da Parte 2 do enunciado:
+
+| Item | Onde está |
+|---|---|
+| a. Total acumulado de pagamentos por imóvel | `src/services/paineis-service.ts` (`calcularTotalPagamentosPorImovel`) |
+| b. Total de vendas por mês/ano | `src/services/paineis-service.ts` (`calcularVendasPorMes`) |
+| c. Percentual de vendas por tipo de imóvel | `src/services/paineis-service.ts` (`calcularPercentualVendasPorTipoImovel`) |
+| d. Endpoints REST/GET em JSON + Swagger | `src/server.ts` |
+
+As 3 funções recebem a série histórica completa (já carregada em memória pelo
+`PagamentoRepository`, sem `WHERE`/`GROUP BY` no SQL) e processam os dados
+usando `reduce`/`map`/`sort`, sem nenhuma filtragem ou agregação feita pelo
+banco.
+
+### Como rodar o servidor
+
+Com o banco de dados no ar (ver seção "Como rodar" acima):
+
+```bash
+npm run server
+```
+
+- API: `http://localhost:3000/api/imoveis/total-pagamentos`,
+  `http://localhost:3000/api/vendas/mensal`,
+  `http://localhost:3000/api/imoveis/percentual-por-tipo`
+- Swagger UI (vinculado ao `docs/openapi.yaml`): `http://localhost:3000/docs`
