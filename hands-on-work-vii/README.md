@@ -5,9 +5,13 @@ Serviços de backend para os painéis gráficos de uma gestora imobiliária
 
 Tecnologias: MySQL, TypeScript sobre Node.js (via [`tsx`](https://github.com/privatenumber/tsx), sem passo de build) e `mysql2` como driver de banco.
 
-**Entrega 1:** [`docs/entrega-1.pdf`](docs/entrega-1.pdf) — documento
-consolidado com capa, diagrama ER, scripts SQL, código-fonte e especificação
-OpenAPI (itens a até f).
+**Entregas 1 e 2:** [`docs/entrega-1.pdf`](docs/entrega-1.pdf) — documento
+consolidado com capa, diagrama ER, scripts SQL, código-fonte, especificação
+OpenAPI e os resultados dos testes dos 3 serviços REST (prints do Swagger UI).
+
+**Vídeo de apresentação:** [`docs/video-apresentacao.mp4`](docs/video-apresentacao.mp4)
+— demonstra as 3 requisições REST e seus resultados JSON, o código-fonte e a
+estrutura do banco de dados.
 
 Esta entrega cobre os itens **a** até **f** da Parte 1 do enunciado:
 

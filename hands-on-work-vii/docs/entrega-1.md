@@ -51,11 +51,11 @@ Bernardo Ferraz de Campos \\
 \textbf{\Large SERVIÇOS WEB PARA PAINÉIS GRÁFICOS DE GESTÃO IMOBILIÁRIA}
 
 \vspace{0.4cm}
-Entrega 1 -- Hands on Work VII
+Entregas 1 e 2 -- Hands on Work VII
 
 \vspace{1.5cm}
 \begin{minipage}{9cm}
-\small Relatório apresentado à disciplina de Hands on Work VII, do curso de Análise e Desenvolvimento de Sistemas da UNIVALI, referente à modelagem do banco de dados e ao desenvolvimento dos serviços web associados ao projeto de extensão Núcleo de Apoio ao Migrante (NAM). \normalsize
+\small Relatório apresentado à disciplina de Hands on Work VII, do curso de Análise e Desenvolvimento de Sistemas da UNIVALI, referente à modelagem do banco de dados e ao desenvolvimento dos serviços web associados ao projeto de extensão Núcleo de Apoio ao Migrante (NAM), incluindo a implementação dos três serviços REST de agregação em memória. \normalsize
 \end{minipage}
 
 \vfill
@@ -78,7 +78,9 @@ Este relatório documenta a primeira entrega do trabalho da disciplina de Hands 
 
 O trabalho está vinculado ao projeto de extensão Núcleo de Apoio ao Migrante (NAM), coordenado pelo professor Rafael Padilha dos Santos, cujo objetivo é apoiar migrantes em situação de vulnerabilidade em Santa Catarina, inclusive na busca por moradia e trabalho. Os dados de pagamentos de imóveis processados aqui servem de base para decisões futuras sobre viabilidade de moradia nessas regiões.
 
-Nesta primeira etapa, o grupo modelou o banco de dados relacional, carregou os registros de exemplo, escreveu a consulta que junta as tabelas e o código em TypeScript que a executa, além de especificar em OpenAPI os três serviços REST que serão implementados na Parte 2. Um ponto central do enunciado é que o SGBD não pode filtrar nem agrupar dados: toda essa responsabilidade fica com a aplicação, usando técnicas de programação funcional sobre os dados carregados por inteiro em memória.
+Na primeira etapa, o grupo modelou o banco de dados relacional, carregou os registros de exemplo, escreveu a consulta que junta as tabelas e o código em TypeScript que a executa, além de especificar em OpenAPI os três serviços REST da Parte 2. Um ponto central do enunciado é que o SGBD não pode filtrar nem agrupar dados: toda essa responsabilidade fica com a aplicação, usando técnicas de programação funcional sobre os dados carregados por inteiro em memória.
+
+Na segunda etapa, documentada nas últimas seções deste relatório, essas três funções de agregação foram implementadas e expostas como rotas REST/GET por meio de um servidor Express, testadas via Swagger UI a partir do próprio documento OpenAPI especificado na Parte 1.
 
 O banco utilizado foi o MySQL e o backend foi escrito em TypeScript, rodando sobre Node.js, com a camada de acesso a dados organizada de forma orientada a objetos.
 
@@ -415,9 +417,222 @@ components:
 
 O arquivo completo está em `docs/openapi.yaml`, com as respostas de erro e demais detalhes que foram omitidos aqui por espaço. Ele passa sem erros pela validação do `redocly lint` e pode ser importado no Swagger Editor para conferência visual.
 
+# PARTE 2 -- FUNÇÕES DE AGREGAÇÃO E SERVIÇOS REST
+
+Com a série histórica completa carregada em memória pelo `PagamentoRepository` (Parte 1), a Parte 2 implementa as três funções de agregação pedidas no enunciado -- soma por imóvel, total por mês/ano e percentual por tipo de imóvel -- e as expõe como rotas REST/GET usando Express, seguindo a especificação OpenAPI já apresentada. Nenhuma das três funções usa `WHERE` ou `GROUP BY`: todo o agrupamento é feito em JavaScript/TypeScript, com `reduce`, `map` e `sort` sobre os dados já carregados.
+
+## Funções de agregação (itens a, b e c)
+
+```typescript
+import type { PagamentoCompleto } from '../repositories/pagamento-repository.js';
+
+export interface TotalPorImovel {
+  codigoImovel: number;
+  totalPagamentos: number;
+}
+
+export interface TotalPorMes {
+  mesAno: string;
+  totalVendas: number;
+}
+
+export interface PercentualPorTipo {
+  tipoImovel: string;
+  percentual: number;
+}
+
+function arredondar(valor: number): number {
+  return Math.round(valor * 100) / 100;
+}
+
+function extrairMesAno(data: string | Date): string {
+  const dataReferencia = data instanceof Date ? data : new Date(`${data}T00:00:00`);
+  const mes = String(dataReferencia.getMonth() + 1).padStart(2, '0');
+  const ano = dataReferencia.getFullYear();
+  return `${mes}/${ano}`;
+}
+
+function compararMesAno(mesAnoA: string, mesAnoB: string): number {
+  const [mesA, anoA] = mesAnoA.split('/').map(Number);
+  const [mesB, anoB] = mesAnoB.split('/').map(Number);
+  return anoA * 12 + mesA - (anoB * 12 + mesB);
+}
+
+export function calcularTotalPagamentosPorImovel(
+  pagamentos: PagamentoCompleto[]
+): TotalPorImovel[] {
+  const totaisPorImovel = pagamentos.reduce<Map<number, number>>(
+    (acumulador, pagamento) => {
+      const totalAtual = acumulador.get(pagamento.codigo_imovel) ?? 0;
+      const valor = Number(pagamento.valor_do_pagamento);
+      acumulador.set(pagamento.codigo_imovel, totalAtual + valor);
+      return acumulador;
+    },
+    new Map()
+  );
+
+  return Array.from(totaisPorImovel.entries()).map(
+    ([codigoImovel, totalPagamentos]) => ({
+      codigoImovel,
+      totalPagamentos: arredondar(totalPagamentos),
+    })
+  );
+}
+
+export function calcularVendasPorMes(
+  pagamentos: PagamentoCompleto[]
+): TotalPorMes[] {
+  const totaisPorMes = pagamentos.reduce<Map<string, number>>(
+    (acumulador, pagamento) => {
+      const mesAno = extrairMesAno(pagamento.data_do_pagamento);
+      const totalAtual = acumulador.get(mesAno) ?? 0;
+      const valor = Number(pagamento.valor_do_pagamento);
+      acumulador.set(mesAno, totalAtual + valor);
+      return acumulador;
+    },
+    new Map()
+  );
+
+  return Array.from(totaisPorMes.entries())
+    .map(([mesAno, totalVendas]) => ({
+      mesAno,
+      totalVendas: arredondar(totalVendas),
+    }))
+    .sort((a, b) => compararMesAno(a.mesAno, b.mesAno));
+}
+
+export function calcularPercentualVendasPorTipoImovel(
+  pagamentos: PagamentoCompleto[]
+): PercentualPorTipo[] {
+  const valorTotalGeral = pagamentos.reduce(
+    (soma, pagamento) => soma + Number(pagamento.valor_do_pagamento),
+    0
+  );
+
+  const totaisPorTipo = pagamentos.reduce<Map<string, number>>(
+    (acumulador, pagamento) => {
+      const totalAtual = acumulador.get(pagamento.tipo_imovel) ?? 0;
+      const valor = Number(pagamento.valor_do_pagamento);
+      acumulador.set(pagamento.tipo_imovel, totalAtual + valor);
+      return acumulador;
+    },
+    new Map()
+  );
+
+  return Array.from(totaisPorTipo.entries()).map(
+    ([tipoImovel, valorTotal]) => ({
+      tipoImovel,
+      percentual: arredondar((valorTotal / valorTotalGeral) * 100),
+    })
+  );
+}
+```
+
+## Servidor Express e endpoints REST (item d)
+
+O arquivo `server.ts` monta as três rotas REST/GET, cada uma buscando a série histórica completa via `PagamentoRepository` e devolvendo o resultado das funções de agregação em JSON. O mesmo servidor também expõe o Swagger UI em `/docs`, carregando diretamente o `docs/openapi.yaml` especificado na Parte 1, para permitir testar as três chamadas por meio do próprio Swagger.
+
+```typescript
+import 'dotenv/config';
+import { readFileSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
+import path from 'node:path';
+import express, { type Request, type Response } from 'express';
+import swaggerUi from 'swagger-ui-express';
+import { load as carregarYaml } from 'js-yaml';
+import { DatabaseConnection } from './config/database-connection.js';
+import { PagamentoRepository } from './repositories/pagamento-repository.js';
+import {
+  calcularTotalPagamentosPorImovel,
+  calcularVendasPorMes,
+  calcularPercentualVendasPorTipoImovel,
+} from './services/paineis-service.js';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
+const especificacaoOpenApi = carregarYaml(
+  readFileSync(path.join(__dirname, '../docs/openapi.yaml'), 'utf8')
+) as Record<string, unknown>;
+
+const databaseConnection = new DatabaseConnection({
+  host: process.env.DB_HOST as string,
+  port: Number(process.env.DB_PORT),
+  user: process.env.DB_USER as string,
+  password: process.env.DB_PASSWORD ?? '',
+  database: process.env.DB_NAME as string,
+});
+
+const pagamentoRepository = new PagamentoRepository(databaseConnection);
+
+const app = express();
+
+app.use('/docs', swaggerUi.serve, swaggerUi.setup(especificacaoOpenApi));
+
+app.get('/api/imoveis/total-pagamentos', async (_req: Request, res: Response) => {
+  try {
+    const pagamentos = await pagamentoRepository.buscarSerieHistoricaCompleta();
+    res.json(calcularTotalPagamentosPorImovel(pagamentos));
+  } catch (error) {
+    console.error('Falha ao calcular total de pagamentos por imovel:', error);
+    res.status(500).json({ mensagem: 'Falha ao consultar pagamentos' });
+  }
+});
+
+app.get('/api/vendas/mensal', async (_req: Request, res: Response) => {
+  try {
+    const pagamentos = await pagamentoRepository.buscarSerieHistoricaCompleta();
+    res.json(calcularVendasPorMes(pagamentos));
+  } catch (error) {
+    console.error('Falha ao calcular vendas por mes:', error);
+    res.status(500).json({ mensagem: 'Falha ao consultar pagamentos' });
+  }
+});
+
+app.get('/api/imoveis/percentual-por-tipo', async (_req: Request, res: Response) => {
+  try {
+    const pagamentos = await pagamentoRepository.buscarSerieHistoricaCompleta();
+    res.json(calcularPercentualVendasPorTipoImovel(pagamentos));
+  } catch (error) {
+    console.error('Falha ao calcular percentual por tipo de imovel:', error);
+    res.status(500).json({ mensagem: 'Falha ao consultar pagamentos' });
+  }
+});
+
+const porta = Number(process.env.PORT ?? 3000);
+
+app.listen(porta, () => {
+  console.log(`Servidor rodando em http://localhost:${porta}`);
+  console.log(`Documentacao Swagger em http://localhost:${porta}/docs`);
+});
+```
+
+## Resultados dos testes via Swagger UI
+
+Os três serviços foram testados com o banco de dados da Parte 1 carregado (36 pagamentos, 8 imóveis, 4 tipos), usando o botão "Try it out" do Swagger UI servido em `/docs`. As capturas abaixo mostram a URL chamada e o corpo da resposta JSON de cada um.
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.95\textwidth]{screenshots/total-pagamentos.png}
+\caption{GET /api/imoveis/total-pagamentos -- total acumulado por imóvel}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.95\textwidth]{screenshots/vendas-mensal.png}
+\caption{GET /api/vendas/mensal -- total de vendas por mês/ano}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.95\textwidth]{screenshots/percentual-por-tipo.png}
+\caption{GET /api/imoveis/percentual-por-tipo -- percentual de vendas por tipo de imóvel}
+\end{figure}
+
+Os três retornaram HTTP 200 com os valores esperados: os totais por imóvel somam R\$ 176.600,00, o mesmo valor obtido somando as vendas mês a mês, e os percentuais por tipo de imóvel (29,11% + 40,2% + 20,05% + 10,65%) fecham em 100% (a pequena diferença é só arredondamento de exibição).
+
 # CONSIDERAÇÕES FINAIS
 
-Com o banco modelado, a consulta com junção pronta e o código de acesso funcionando, a base para a Parte 2 já está montada: basta implementar as três funções de agregação em memória (soma por imóvel, total por mês e percentual por tipo) e expô-las como rotas REST usando Express, conforme já descrito na especificação OpenAPI.
+Com o banco modelado, a consulta com junção pronta, o código de acesso funcionando e, agora, as três funções de agregação implementadas e expostas como serviços REST testados via Swagger, as duas partes do trabalho estão concluídas conforme o enunciado.
 
 O código-fonte completo deste trabalho está disponível no repositório do grupo, na pasta `hands-on-work-vii`.
 
@@ -429,6 +644,8 @@ MICROSOFT. **TypeScript documentation**. [s. l.], 2026. Disponível em: <https:/
 
 OPENAPI INITIATIVE. **OpenAPI Specification**. Version 3.0.3. [s. l.], 2021. Disponível em: <https://spec.openapis.org/oas/v3.0.3>. Acesso em: 3 set. 2026.
 
+OPENJS FOUNDATION. **Express**: Node.js web application framework. [s. l.], 2026. Disponível em: <https://expressjs.com/>. Acesso em: 22 set. 2026.
+
 OPENJS FOUNDATION. **Node.js documentation**. [s. l.], 2026. Disponível em: <https://nodejs.org/docs/latest/api/>. Acesso em: 3 set. 2026.
 
 ORACLE CORPORATION. **MySQL 8.4 Reference Manual**. [s. l.], 2024. Disponível em: <https://dev.mysql.com/doc/refman/8.4/en/>. Acesso em: 3 set. 2026.
@@ -436,5 +653,7 @@ ORACLE CORPORATION. **MySQL 8.4 Reference Manual**. [s. l.], 2024. Disponível e
 SIDOROV, Andrey. **mysql2**. [s. l.], 2024. Disponível em: <https://www.npmjs.com/package/mysql2>. Acesso em: 3 set. 2026.
 
 SMARTBEAR SOFTWARE. **Swagger Editor**. [s. l.], 2026. Disponível em: <https://editor.swagger.io/>. Acesso em: 3 set. 2026.
+
+SMARTBEAR SOFTWARE. **Swagger UI**. [s. l.], 2026. Disponível em: <https://swagger.io/tools/swagger-ui/>. Acesso em: 22 set. 2026.
 
 UNIVALI. **Hands on Work VII**: enunciado da atividade avaliativa. Itajaí: Universidade do Vale do Itajaí, 2026.
