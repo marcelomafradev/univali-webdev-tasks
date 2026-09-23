@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
-  "description": "Servicos web para os paineis graficos de uma gestora imobiliaria - Hands on Work VII (NAM/UNIVALI)",
+  "description": "Serviços web para os painéis gráficos de uma gestora imobiliária - Hands on Work VII (NAM/UNIVALI)",
   "scripts": {
     "start": "tsx src/consultar-pagamentos.ts",
     "server": "tsx src/server.ts"

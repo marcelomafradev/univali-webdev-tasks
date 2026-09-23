@@ -2,3 +2,7 @@ node_modules/
 .env
 npm-debug.log*
 .DS_Store
+
+# Entregáveis grandes (PDF/vídeo): mantidos localmente, entregues à parte, não versionados
+docs/entrega-1.pdf
+docs/video-apresentacao.mp4

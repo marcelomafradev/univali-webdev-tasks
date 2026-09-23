@@ -45,4 +45,4 @@ dados MySQL, consulta com JOIN e código TypeScript de acesso aos dados (Parte 1
 - [Links Page](https://marcelomafradev.github.io/univali-webdev-tasks/links-page/index.html)
 - [B²B Barbearia](https://marcelomafradev.github.io/univali-webdev-tasks/b2b/index.html)
 - [Calculadora](https://marcelomafradev.github.io/univali-webdev-tasks/calculator/index.html)
-- [Hands on Work VII — Entrega 1 (PDF)](hands-on-work-vii/docs/entrega-1.pdf)
+- [Hands on Work VII](hands-on-work-vii/README.md) — código-fonte; PDF e vídeo de apresentação entregues à parte

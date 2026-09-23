@@ -292,7 +292,7 @@ async function main(): Promise<void> {
 
   try {
     const serieHistorica = await pagamentoRepository.buscarSerieHistoricaCompleta();
-    console.log(`Total de registros carregados em memoria: ${serieHistorica.length}`);
+    console.log(`Total de registros carregados em memória: ${serieHistorica.length}`);
     console.table(serieHistorica);
   } finally {
     await databaseConnection.close();
@@ -322,7 +322,7 @@ Rodando `npm start`, os 36 registros aparecem carregados de uma vez em memória,
 Os nomes de coluna acima foram abreviados só para caber na página; o que a consulta realmente devolve são `data_do_pagamento`, `valor_do_pagamento` e `codigo_imovel`, junto com a `descricao_imovel` completa de cada um (ver seção 2).
 
 ```
-Total de registros carregados em memoria: 36
+Total de registros carregados em memória: 36
 ```
 
 # ESPECIFICAÇÃO OPENAPI DOS SERVIÇOS DA PARTE 2
@@ -336,7 +336,7 @@ O enunciado pede que os três serviços da Parte 2 já sejam descritos em OpenAP
 ```yaml
 openapi: 3.0.3
 info:
-  title: API de Paineis Graficos de Gestao Imobiliaria - Hands on Work VII
+  title: API de Painéis Gráficos de Gestão Imobiliária - Hands on Work VII
   version: 1.0.0
   license:
     name: MIT
@@ -347,11 +347,11 @@ security: []
 paths:
   /api/imoveis/total-pagamentos:
     get:
-      summary: Total acumulado de pagamentos por imovel
+      summary: Total acumulado de pagamentos por imóvel
       operationId: getTotalPagamentosPorImovel
       responses:
         '200':
-          description: Lista com o total acumulado de pagamentos por imovel
+          description: Lista com o total acumulado de pagamentos por imóvel
           content:
             application/json:
               schema:
@@ -364,11 +364,11 @@ paths:
 
   /api/vendas/mensal:
     get:
-      summary: Total de vendas por mes/ano
+      summary: Total de vendas por mês/ano
       operationId: getVendasPorMes
       responses:
         '200':
-          description: Lista com o total de vendas por mes/ano
+          description: Lista com o total de vendas por mês/ano
           content:
             application/json:
               schema:
@@ -381,7 +381,7 @@ paths:
 
   /api/imoveis/percentual-por-tipo:
     get:
-      summary: Percentual do valor total de vendas por tipo de imovel
+      summary: Percentual do valor total de vendas por tipo de imóvel
       operationId: getPercentualVendasPorTipoImovel
       responses:
         '200':
@@ -573,7 +573,7 @@ app.get('/api/imoveis/total-pagamentos', async (_req: Request, res: Response) =>
     const pagamentos = await pagamentoRepository.buscarSerieHistoricaCompleta();
     res.json(calcularTotalPagamentosPorImovel(pagamentos));
   } catch (error) {
-    console.error('Falha ao calcular total de pagamentos por imovel:', error);
+    console.error('Falha ao calcular total de pagamentos por imóvel:', error);
     res.status(500).json({ mensagem: 'Falha ao consultar pagamentos' });
   }
 });
@@ -583,7 +583,7 @@ app.get('/api/vendas/mensal', async (_req: Request, res: Response) => {
     const pagamentos = await pagamentoRepository.buscarSerieHistoricaCompleta();
     res.json(calcularVendasPorMes(pagamentos));
   } catch (error) {
-    console.error('Falha ao calcular vendas por mes:', error);
+    console.error('Falha ao calcular vendas por mês:', error);
     res.status(500).json({ mensagem: 'Falha ao consultar pagamentos' });
   }
 });
@@ -593,7 +593,7 @@ app.get('/api/imoveis/percentual-por-tipo', async (_req: Request, res: Response)
     const pagamentos = await pagamentoRepository.buscarSerieHistoricaCompleta();
     res.json(calcularPercentualVendasPorTipoImovel(pagamentos));
   } catch (error) {
-    console.error('Falha ao calcular percentual por tipo de imovel:', error);
+    console.error('Falha ao calcular percentual por tipo de imóvel:', error);
     res.status(500).json({ mensagem: 'Falha ao consultar pagamentos' });
   }
 });
@@ -602,7 +602,7 @@ const porta = Number(process.env.PORT ?? 3000);
 
 app.listen(porta, () => {
   console.log(`Servidor rodando em http://localhost:${porta}`);
-  console.log(`Documentacao Swagger em http://localhost:${porta}/docs`);
+  console.log(`Documentação Swagger em http://localhost:${porta}/docs`);
 });
 ```
 

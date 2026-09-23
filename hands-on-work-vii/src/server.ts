@@ -38,7 +38,7 @@ app.get('/api/imoveis/total-pagamentos', async (_req: Request, res: Response) =>
     const pagamentos = await pagamentoRepository.buscarSerieHistoricaCompleta();
     res.json(calcularTotalPagamentosPorImovel(pagamentos));
   } catch (error) {
-    console.error('Falha ao calcular total de pagamentos por imovel:', error);
+    console.error('Falha ao calcular total de pagamentos por imóvel:', error);
     res.status(500).json({ mensagem: 'Falha ao consultar pagamentos' });
   }
 });
@@ -48,7 +48,7 @@ app.get('/api/vendas/mensal', async (_req: Request, res: Response) => {
     const pagamentos = await pagamentoRepository.buscarSerieHistoricaCompleta();
     res.json(calcularVendasPorMes(pagamentos));
   } catch (error) {
-    console.error('Falha ao calcular vendas por mes:', error);
+    console.error('Falha ao calcular vendas por mês:', error);
     res.status(500).json({ mensagem: 'Falha ao consultar pagamentos' });
   }
 });
@@ -58,7 +58,7 @@ app.get('/api/imoveis/percentual-por-tipo', async (_req: Request, res: Response)
     const pagamentos = await pagamentoRepository.buscarSerieHistoricaCompleta();
     res.json(calcularPercentualVendasPorTipoImovel(pagamentos));
   } catch (error) {
-    console.error('Falha ao calcular percentual por tipo de imovel:', error);
+    console.error('Falha ao calcular percentual por tipo de imóvel:', error);
     res.status(500).json({ mensagem: 'Falha ao consultar pagamentos' });
   }
 });
@@ -67,5 +67,5 @@ const porta = Number(process.env.PORT ?? 3000);
 
 app.listen(porta, () => {
   console.log(`Servidor rodando em http://localhost:${porta}`);
-  console.log(`Documentacao Swagger em http://localhost:${porta}/docs`);
+  console.log(`Documentação Swagger em http://localhost:${porta}/docs`);
 });

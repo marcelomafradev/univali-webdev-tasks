@@ -1,12 +1,12 @@
 openapi: 3.0.3
 info:
-  title: API de Paineis Graficos de Gestao Imobiliaria - Hands on Work VII
+  title: API de Painéis Gráficos de Gestão Imobiliária - Hands on Work VII
   description: >
-    Servicos REST para alimentar os paineis graficos (barras, linha/dispersao e
-    pizza) de uma empresa de gestao imobiliaria. Os dados sao carregados na
-    integra a partir do banco relacional e filtrados/agregados na aplicacao,
-    por meio de tecnicas de programacao funcional (map/filter/reduce), nao no
-    SGBD. Especificacao dos 3 servicos a serem implementados na Parte 2.
+    Serviços REST para alimentar os painéis gráficos (barras, linha/dispersão e
+    pizza) de uma empresa de gestão imobiliária. Os dados são carregados na
+    íntegra a partir do banco relacional e filtrados/agregados na aplicação,
+    por meio de técnicas de programação funcional (map/filter/reduce), não no
+    SGBD. Especificação dos 3 serviços implementados na Parte 2.
   version: 1.0.0
   license:
     name: MIT
@@ -18,14 +18,14 @@ security: []
 paths:
   /api/imoveis/total-pagamentos:
     get:
-      summary: Total acumulado de pagamentos por imovel
+      summary: Total acumulado de pagamentos por imóvel
       description: >
-        Grafico de barras: para cada imovel, o somatorio de todos os
-        pagamentos ao longo de toda a serie historica.
+        Gráfico de barras: para cada imóvel, o somatório de todos os
+        pagamentos ao longo de toda a série histórica.
       operationId: getTotalPagamentosPorImovel
       responses:
         '200':
-          description: Lista com o total acumulado de pagamentos por imovel
+          description: Lista com o total acumulado de pagamentos por imóvel
           content:
             application/json:
               schema:
@@ -42,14 +42,14 @@ paths:
 
   /api/vendas/mensal:
     get:
-      summary: Total de vendas por mes/ano
+      summary: Total de vendas por mês/ano
       description: >
-        Grafico de linha/dispersao: total de vendas ocorridas em cada
-        mes/ano, considerando todos os dados disponiveis.
+        Gráfico de linha/dispersão: total de vendas ocorridas em cada
+        mês/ano, considerando todos os dados disponíveis.
       operationId: getVendasPorMes
       responses:
         '200':
-          description: Lista com o total de vendas por mes/ano
+          description: Lista com o total de vendas por mês/ano
           content:
             application/json:
               schema:
@@ -66,15 +66,15 @@ paths:
 
   /api/imoveis/percentual-por-tipo:
     get:
-      summary: Percentual do valor total de vendas por tipo de imovel
+      summary: Percentual do valor total de vendas por tipo de imóvel
       description: >
-        Grafico de pizza: percentual do valor total de vendas de cada
-        modalidade de imovel (Apartamento, Casa, Terreno, Sala Comercial)
-        em relacao a toda a serie historica.
+        Gráfico de pizza: percentual do valor total de vendas de cada
+        modalidade de imóvel (Apartamento, Casa, Terreno, Sala Comercial)
+        em relação a toda a série histórica.
       operationId: getPercentualVendasPorTipoImovel
       responses:
         '200':
-          description: Lista com o percentual de vendas por tipo de imovel
+          description: Lista com o percentual de vendas por tipo de imóvel
           content:
             application/json:
               schema:
@@ -94,7 +94,7 @@ paths:
 components:
   responses:
     ErroInterno:
-      description: Erro inesperado ao processar a serie historica
+      description: Erro inesperado ao processar a série histórica
       content:
         application/json:
           schema:
@@ -119,7 +119,7 @@ components:
       properties:
         mesAno:
           type: string
-          description: Mes e ano no formato MM/AAAA
+          description: Mês e ano no formato MM/AAAA
           example: '11/2025'
         totalVendas:
           type: number

@@ -15,7 +15,7 @@ async function main(): Promise<void> {
 
   try {
     const serieHistorica = await pagamentoRepository.buscarSerieHistoricaCompleta();
-    console.log(`Total de registros carregados em memoria: ${serieHistorica.length}`);
+    console.log(`Total de registros carregados em memória: ${serieHistorica.length}`);
     console.table(serieHistorica);
   } finally {
     await databaseConnection.close();
