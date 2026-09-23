@@ -8,7 +8,7 @@ geometry: "left=3cm,right=2cm,top=3cm,bottom=2cm,headheight=15pt"
 lang: pt-BR
 colorlinks: true
 linkcolor: black
-urlcolor: black
+urlcolor: blue
 toc: false
 header-includes:
   - |
